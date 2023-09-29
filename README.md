@@ -2,7 +2,15 @@
 
 In this homework you will implement a scrolly-telling experience where a user can click through a poem and have their attention drawn to specific parts whilst having related visualisations display and animate throughout the process.
 
-## Starter Code
+#### Tutorial Outline
+
+0. [Starter Code](#startercode)
+1. [Scrollytelling - Updating the Text](#updatetext)
+2. [Scrollytelling - Updating the Visualisation to go with the Text](#updatevis)
+3. [Adding Interactivity](#interactivity)
+4. [Homework Assignment](#assignment)
+
+## <a name="startercode">0. Starter Code</a>
 
 You will be given a significant amount of starter code in this tutorial especially to deal with the formatting and display of the web page. When you load the tutorial starter code initially it should display a web page that looks like this:
 
@@ -10,11 +18,9 @@ You will be given a significant amount of starter code in this tutorial especial
 
 I encourage you to read over the starter code in depth and familiarise yourself with how it works. In particular spend some time playing around with the CSS file and read the comments in this file to understand how this achieves the layout that you begin with.
 
-The header of this page holds the title of the exprerience: _Roses: A Scrollytelling Experience_. The left hand, orange, panel holds the poem that we are displaying, and the right hadn dark green panel will eventually hold the visualisations that we want to associate with the poem. The footer of the page contains two buttons a forward button and a backward button. In a more complete scrollytelling experience you would want to bind the behaviour we will code to these buttons to the scrollwheel of the user, but in our example we will just work with these buttons.
+The header of this page holds the title of the exprerience: _Roses: A Scrollytelling Experience_. The left hand, orange panel holds the poem that we are displaying, and the right hand dark green panel will eventually hold the visualisations that we want to associate with the poem. The footer of the page contains two buttons: a forward button and a backward button. In a more complete scrollytelling experience you would want to bind the behaviour we will code to these buttons to the scrollwheel of the user, but in our example we will just work with these buttons.
 
-## Scrollytelling - Updating the Text
-
-As you can see in the starter code we have a poem that is being displayed utilising the approach we demonstrated in the first homework using \<ul elements to represent the verses and \li elements within each \<ul> to hold the lines of the verses:
+As you can see in the starter code we have a poem that is being displayed utilising the approach we demonstrated in the first homework using `<ul>` elements to represent the verses and `<li>` elements within each `<ul>` to hold the lines of the verses:
 
 ```html
 <ul class="verse" id="verse1">
@@ -87,7 +93,9 @@ let keyframes = [
 
 For each keyframe we define the active verse and the active lines that we would like to highlight to the user.
 
-For the `drawKeyframe` function we will need to call other functions that we will initally write as dummy functions which do nothing and then go and fill them in one by one.
+## <a name="updatetext">1. Scrollytelling - Updating the Text</a>
+
+Given this structure of thinking about scrollytelling in terms of keyframes, we will begin with the `drawKeyframe` function. We will need to call other functions that we will initally write as dummy functions which do nothing and then go and fill them in one by one.
 
 ```Javascript
 // We need to define a keyframe index globally to keeep track of where we are at in the narrative flow
@@ -330,7 +338,7 @@ The final little change we are going to make is to ensure that the content alway
 }
 ```
 
-## Scrollytelling - Updating Visualisation to go with the Text
+## <a name="updatevis">2. Scrollytelling - Updating Visualisation to go with the Text</a>
 
 Now that we have finished how the text should display for our scrollytelling, the next step is to update the right hand panel of the screen to display and change visualisation associated with each keyframe.
 
@@ -703,7 +711,7 @@ bars.enter().append("rect")
 
 You'll notice that the existing bars still move instantly and that the old bars being removed just disappear as well as the axes changing instantly too. Part of your homework will be to make this happen smoothly.
 
-## Adding some interactivity
+## <a name="interactivity">3. Adding some interactivity</a>
 
 For the final part of the tutorial we are going to introuduce some interactivity. In the final verse I would like add the ability to click on the word _red_ in the text and when this happens to highlight the red bar in the chart. We already have a function that does this highlighting so all we need to do now is find a way to trigger it when we click on the word in verse 4. To achieve this we are going to wrap the word in a \<span> element and give it a specific class name:
 
@@ -800,7 +808,7 @@ Keyframes if you have finished the tutorial correctly
 6. Verse 3 line 4 highlighted, no bars highlighted
 7. Verse 4 all lines highlighted, hovering over the 'red' bar should change the colour of the word red in the verse to red.
 
-## Homework Assignment
+## <a name="assignment">4. Homework Assignment</a>
 
 This homework assignment requires quite a lot more work than previous assignments with less guidance so I recommend that you make a start as soon as possible so that you can attend office hours should you need to.
 
