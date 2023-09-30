@@ -52,7 +52,7 @@ As you can see in the starter code we have a poem that is being displayed utilis
 </ul>
 ```
 
-One of the first steps in designing a scrollytelling experience is to decide exactly how you want to display the experience to your user. In our case we want to decide which aspects of the poem you want to highlight to draw the users attention. This can be done on multiple levels of granularity, from whole verses, to selections of lines all the way down to individual words. We will define each step of this process as a _keyframe_. In each keyframe we will want to either update the text that is the focus, or update the associated visualisation, or (oftentimes) do both at the same time.
+One of the first steps in designing a scrollytelling experience is to decide exactly how you want to display the experience to your user. In our case we want to decide which aspects of the poem you want to highlight to draw the users attention. This can be done on multiple levels of granularity, from whole verses, to selections of lines all the way down to individual words. We will define each step of this process as a _keyframe_. A keyframe will capture either an update to the text that is the focus, or update the associated visualisation, or (oftentimes) do both at the same time.
 
 In the first part of this tutorial we are just going to focus on updating the highlighted text. In our example I would like to first highlight the whole of verse one, then the whole of verse two. After this I would like to step through each line of verses 3 and 4 in turn.
 
@@ -498,7 +498,11 @@ let xScale;
 let yScale;
 ```
 
-Now we want to move on to write our `updateBarchart` function:
+Before I move on to the `updateBarChart`, now is a good time to tell you a bit more about the d3 [enter/update/exit loop](https://bost.ocks.org/mike/join/). `.enter()` captures missing elements in the data -- basically, any data that is unbound at that time (in our case, any colors that were not in our previous dataset shown in the bars but that now appear in the new dataset)
+
+![enter-update-exit.jpeg](assets/images/enter-update-exit.jpeg)
+
+Now we want to move on to write our `updateBarChart` function:
 
 ```Javascript
 // As with the draw bar chart function we will pass the data we want to draw and the title of the graph
