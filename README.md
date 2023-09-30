@@ -498,9 +498,9 @@ let xScale;
 let yScale;
 ```
 
-Before I move on to the `updateBarChart`, now is a good time to tell you a bit more about the d3 [enter/update/exit loop](https://bost.ocks.org/mike/join/). `.enter()` captures missing elements in the data -- basically, any data that is unbound at that time (in our case, any colors that were not in our previous dataset shown in the bars but that now appear in the new dataset)
+Before I move on to the `updateBarChart`, now is a good time to tell you a bit more about the d3 [enter/update/exit loop](https://bost.ocks.org/mike/join/). `.enter()` applied to a selection captures missing elements in the data -- basically, any data that is unbound at that time (in our case, any colors that were not in our previous dataset shown in the bars but that now appear in the new dataset). *update* applies any changes that you make to the given selection (in our case, it's the `.attr()` methods that appear after `.enter()`). Finally, *exit* gets rid of unbound elements. These concepts are illustrated below (figure courtesy of Mike Bostock's blog post). Try to think through how this affects updating the bars. 
 
-![enter-update-exit.jpeg](assets/images/enter-update-exit.jpeg)
+![enter-update-exit.png](assets/images/enter-update-exit.png)
 
 Now we want to move on to write our `updateBarChart` function:
 
