@@ -56,7 +56,7 @@ One of the first steps in designing a scrollytelling experience is to decide exa
 
 In the first part of this tutorial we are just going to focus on updating the highlighted text. In our example I would like to first highlight the whole of verse one, then the whole of verse two. After this I would like to step through each line of verses 3 and 4 in turn.
 
-To achieve this we are going to define a `keyframes` data structure and a `drawKeyframes` function.
+To achieve this we define a `keyframes` data structure in the starter code and a `drawKeyframes` function.
 
 ```Javascript
 let keyframes = [
@@ -93,9 +93,7 @@ let keyframes = [
 
 For each keyframe we define the active verse and the active lines that we would like to highlight to the user.
 
-## <a name="updatetext">1. Scrollytelling - Updating the Text</a>
-
-Given this structure of thinking about scrollytelling in terms of keyframes, we will begin with the `drawKeyframe` function. We will need to call other functions that we will initally write as dummy functions which do nothing and then go and fill them in one by one.
+Given this structure of thinking about scrollytelling in terms of keyframes, the starter code also contains the `drawKeyframe` function, which contains dummy functions at the moment. 
 
 ```Javascript
 // We need to define a keyframe index globally to keeep track of where we are at in the narrative flow
@@ -130,7 +128,12 @@ function updateActiveLine(vid,lid){
 }
 ```
 
-In order to successfully update and highlight the appropriate verses and lines we are going to want to make use of the css classes and ids we have assigned to each of the verses and lines and apply new css classes to the relevant verses/lines to indicate they are now active. We could do this using pure javascript or utilise d3's built in functionality. Today we are going to use d3.
+In the next section, we will go about filling in these dummy functions one-by-one.
+
+
+## <a name="updatetext">1. Scrollytelling - Updating the Text</a>
+
+In order to successfully update and highlight the appropriate verses and lines we are going to want to make use of the css classes and ids we have assigned to each of the verses and lines and apply new css classes to the relevant verses/lines to indicate they are now active. We could do this using pure javascript or utilise d3's built in functionality. Today we are going to use d3. Take a look at the syntax below for how to add and remove the relevant classes which will handle our changes in styling.
 
 ```Javascript
 function resetActiveLines() {
@@ -155,7 +158,7 @@ function updateActiveLine(vid, lid) {
 }
 ```
 
-This is basically all of the code that we need to kick off a very basic scrollytelling experience. All we need to do now is implement a function to detect whether the user has clicked forward or backward on the page:
+This is basically all of the code that we need to kick off a very basic scrollytelling experience. All we need to do now is implement a function to detect whether the user has clicked forward or backward on the page, paying special attention to the edge cases:
 
 ```Javascript
 function forwardClicked() {
@@ -182,7 +185,7 @@ document.getElementById("forward-button").addEventListener("click", forwardClick
 document.getElementById("backward-button").addEventListener("click", backwardClicked);
 ```
 
-When you go and click these buttons now nothing will change visually but you should see in the inspector that the classes of the relevant verses and lines are being updated. Now we we need to go and define some css classes so that this change in class is reflected visually:
+When you go and click these buttons now nothing will change visually but you should see in the inspector that the classes of the relevant verses and lines are being updated. Now we we need to go and define some css classes so that this change in class is reflected visually. So let's change the font weight and color for the active verses and lines:
 
 ```css
 .active-verse {
@@ -207,7 +210,7 @@ initialise();
 
 Now when we load the webpage we should see that the first verse is in a heavier font and all highlighted in black. Clicking the forward and backward buttons should update this in line with our keyframes.
 
-This is a good start but it is a little bit clumsy. Let's start by tidying up the visualsa little bit so that the experience is a little bit less messy. Firstly, because I want this experience to be a seamless full-screen experience for a user I don't want their to be a scrollbar that appears on the side of the page. To achieve this we are going to force the left column content div to have a maximum height like this:
+This is a good start but it is a little bit clumsy. Let's start by tidying up the visuals a little bit so that the experience is a little bit less messy. Firstly, because I want this experience to be a seamless full-screen experience for a user I don't want their to be a scrollbar that appears on the side of the page. To achieve this we are going to force the left column content div to have a maximum height like this:
 
 ```css
 .left-column-content {
@@ -220,7 +223,7 @@ This is a good start but it is a little bit clumsy. Let's start by tidying up th
 }
 ```
 
-As you should see this kind of works but now our page looks even messier as even though the size of the div has been fixed, the ccontent of the div is overflowing out of it and making our page look messy. To fix this let's set the `overflow` css property to handle this.
+As you should see this kind of works but now our page looks even messier as even though the size of the div has been fixed, the content of the div is overflowing out of it and making our page look messy. To fix this let's set the `overflow` css property to handle this.
 
 ```css
 .left-column-content {
@@ -240,7 +243,7 @@ This is much better, but having the scrollbar appear on the div is quite messy. 
 
 For more information on designing custom scrollbars and which browsers support what, you can look at [this tutorial](https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp).
 
-So now our page looks a lot nicer, but ideally we would like the page to automatically scroll so that when the user moves to the next keyframe the relevant text is in the middle of the screen. To do this, let's define a function called `scrollLeftColumnToActiveVerse` which will do exactly what it sounds like. We we will call this function every time that the active verse is updated. The code should look something like this. Take a moment to read the code carefully and sketch it out if you want to get your head around exactly why the calculations work.
+So now our page looks a lot nicer, but ideally we would like the page to automatically scroll so that when the user moves to the next keyframe the relevant text is in the middle of the screen. To do this, let's define a function called `scrollLeftColumnToActiveVerse` which will do exactly what it sounds like. We will call this function every time that the active verse is updated. The code should look something like this. Take a moment to read the code carefully and sketch it out if you want to get your head around exactly why the calculations work.
 
 ```Javascript
 function scrollLeftColumnToActiveVerse(id) {
@@ -365,7 +368,7 @@ function initialise() {
 
 Now you should see an svg which is centred vertically and horizontally (thanks to the provided css) in the right hand panel of the screen. It's background colour is currently being set by css too. You can do this either using css or by setting the style in the javascript.
 
-This homework makes use of two dummy datasets stored in files _rose_colours.json_ and _violet_colours.json_. The rose colours looks like this and shows the distribution of colours of roses (these numbers are fictional).
+This homework makes use of two dummy datasets stored in files _rose_colours.json_ and _violet_colours.json_ which represent distributions of color of two different types of flower. The rose colours looks like this and shows the distribution of colours of roses (these numbers are fictional).
 
 ```Javascript
 [
@@ -447,7 +450,7 @@ function drawKeyframe(kfi) {
 }
 ```
 
-Now when we open the page we should see that the console outputs our message. Let's go and write up the `drawRoseColours` function. I've provided you an implementation of the `drawBarChart` function which I recommend you taking some time to read carefully to make sure you understand what it does. As a result in order to draw our bar chart it should be as simple as updating the `drawRoseColours` function like this:
+Now when we open the page we should see that the console outputs our message. Let's go and write up the `drawRoseColours` function. I've provided you an implementation of the `drawBarChart` function in the starter code which I recommend you taking some time to read carefully to make sure you understand what it does. For the sake of brevity, I won't display the code here, as we won't be altering it at this point. As a result in order to draw our bar chart it should be as simple as updating the `drawRoseColours` function like this:
 
 ```Javascript
 function drawRoseColours() {
@@ -477,7 +480,7 @@ function drawVioletColours() {
 
 Now when we click the next button we'll see that the chart updates to the violet distribution and when we click back it will update back to the roses.
 
-This satisfies our purpose, btu I would prefer for this transition to be a little bit smoother and because of the way `drawBarChart` works we are doing a lot of work behind the scenes as we are effectively deleting our whole visualisation and drawing it again each time. In this small example this is not too much of a concern but when you work with larger datasets you might want to optimise this. Additionally as our datsets are very similar and have some overlap it means we can do some nice stuff with transitions (more on this soon).
+This satisfies our purpose, but I would prefer for this transition to be a little bit smoother and because of the way `drawBarChart` works we are doing a lot of work behind the scenes as we are effectively deleting our whole visualisation and drawing it again each time. In this small example this is not too much of a concern but when you work with larger datasets you might want to optimise this. Additionally as our datsets are very similar and have some overlap it means we can do some nice stuff with transitions (more on this soon).
 
 So to tidy this up we are going to create a new function to replace `drawBarchart` that will be called `updateBarchart`. Additionally because we no longer want to throw away the whole bar chart and reinstantiate it every time we're going to have to make a lot of the variables global. Let's start with that:
 
@@ -646,7 +649,7 @@ let keyframes = [
     }
 ```
 
-Now let's go ahead and write the highlightColour function. There are a few different ways we could do this, but we're going to do it by selecting all the bars and just updating the fill of the bar that has the same colour bound to it that we are looking for:
+Now let's go ahead and write the `highlightColour` function. There are a few different ways we could do this, but we're going to do it by selecting all the bars and just updating the fill of the bar that has the same colour bound to it that we are looking for:
 
 ```Javascript
 function highlightColour(colourName, highlightColour) {
@@ -676,7 +679,7 @@ function highlightColour(colourName, highlightColour) {
 }
 ```
 
-Ok now let's add our first transition to make this change a bit more smoothly. I'd like the colour to change from it's original to the new value over the course of half a second. We can achieve this using d3's built in handling of transitions:
+Ok now let's add our first transition to make this change a bit more smoothly. I'd like the colour to change from it's original to the new value over the course of half a second. We can achieve this using d3's built in handling of transitions. The transition and duration methods can get chained onto the selection just like other methods in d3 that modify selections:
 
 ```Javascript
    svg.selectAll(".bar")
@@ -685,7 +688,7 @@ Ok now let's add our first transition to make this change a bit more smoothly. I
         .attr("fill", d => (d.colour === colourName ? highlightColour : "#999"));
 ```
 
-Now we've added that simple transition let's return to our `updateBarchart` function and make this work a bit smoother. We are going to add a transition such that when a new bar is added it moves in smoothly from the bottom of the graph. to do that we are going to tweak the section of code around the `bars.enter()` call which deals with new bars to be drawn:
+Now we've added that simple transition let's return to our `updateBarchart` function and make this work a bit smoother. We are going to add a transition such that when a new bar is added it moves in smoothly from the bottom of the graph. To do that we are going to tweak the section of code around the `bars.enter()` call which deals with new bars to be drawn:
 
 ```Javascript
 function updateBarChart(data, title = "") {
@@ -713,7 +716,7 @@ You'll notice that the existing bars still move instantly and that the old bars 
 
 ## <a name="interactivity">3. Adding some interactivity</a>
 
-For the final part of the tutorial we are going to introuduce some interactivity. In the final verse I would like add the ability to click on the word _red_ in the text and when this happens to highlight the red bar in the chart. We already have a function that does this highlighting so all we need to do now is find a way to trigger it when we click on the word in verse 4. To achieve this we are going to wrap the word in a \<span> element and give it a specific class name:
+For the final part of the tutorial we are going to introduce some interactivity. In the final verse I would like add the ability to click on the word _red_ in the text and when this happens to highlight the red bar in the chart. We already have a function that does this highlighting so all we need to do now is find a way to trigger it when we click on the word in verse 4. To achieve this we are going to wrap the word in a `<span>` element and give it a specific class name:
 
 ```html
 <ul class="verse" id="verse4">
@@ -724,7 +727,7 @@ For the final part of the tutorial we are going to introuduce some interactivity
 </ul>
 ```
 
-Let's also make sure we are highlighting the right verse when we reach this part of the experience by adding a keyframe to achieve this, in this situtation we don't need to have an svgUpdate because it is currently displaying the correct chart (roses).
+Let's also make sure we are highlighting the right verse when we reach this part of the experience by adding a keyframe to achieve this. In this situtation we don't need to have an `svgUpdate` because it is currently displaying the correct chart (roses).
 
 ```Javascript
 let keyframes = [
@@ -771,7 +774,7 @@ Firstly let's define a css class that we can turn on/off that will make the text
 }
 ```
 
-Now let's write a function called `makeRedBarHoverable()`. This function will first use d3's built in filter operation to select just the bar with the value "Red". Then we can use d3's way of adding an event listener (`.on()`) to add a `mouseover` event to this bar. Finally, we have to remember to call this function in our last keyframe too.
+Now let's write a function called `makeRedBarHoverable()`. This function will first use d3's built in filter operation to select just the bar with the value "Red". Then we can use d3's way of adding an event listener (`.on()`) to add a `mouseover` event to this bar. (Note: more on [d3 event listeners here](https://d3js.org/d3-selection/events)) Finally, we have to remember to call this function in our last keyframe too.
 
 ```Javascript
 function makeRedBarHoverable() {
@@ -798,7 +801,7 @@ One final trick we can do to indicate to a user that there might be some interac
 
 The only downside of this is that when we are changing the colour of the bars when we highlight them this hover effect will look strange because we will be changing it back to grey when we hover. One potential solution to this is to define new classes for the coloured bars such that they have their own hover colours associated. Another solution would be to define the hover behaviour in the javascript and utilise the mouseover and mouseout event listeners to dynamically change the style of the bars.
 
-Keyframes if you have finished the tutorial correctly
+*As a sanity check, you should have the following behavior in your keyframes if you have finished the tutorial correctly:*
 
 1. Verse 1 all lines highlighted, rose bar chart displayed
 2. Verse 2 all lines highlighted, violet bar chart displayed
